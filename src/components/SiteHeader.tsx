@@ -31,7 +31,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="font-mono text-sm">
-          <span className="text-primary">●</span> {(profile.name.split(" ")[0] ?? "").toLowerCase()}.dev
+          <span className="text-primary">●</span> mila.dev
         </Link>
         <nav className="flex items-center gap-6 font-mono text-sm">
           {links.map((l) => (
