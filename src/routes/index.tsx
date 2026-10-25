@@ -6,10 +6,10 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: `${profile.name} — ${profile.role}` },
-      { name: "description", content: `Live projects and earlier work by ${profile.name}.` },
-      { property: "og:title", content: `${profile.name} — Portfolio` },
-      { property: "og:description", content: `Live projects and earlier work by ${profile.name}.` },
+      { title: `${profile.fullname} — ${profile.role}` },
+      { name: "description", content: `Live projects and earlier work by ${profile.fullname}.` },
+      { property: "og:title", content: `${profile.fullname} — Portfolio` },
+      { property: "og:description", content: `Live projects and earlier work by ${profile.fullname}.` },
     ],
   }),
   component: Index,

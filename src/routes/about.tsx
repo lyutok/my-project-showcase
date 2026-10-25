@@ -5,16 +5,16 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: `About — ${profile.name}` },
-      { name: "description", content: `About ${profile.name}, ${profile.role}.` },
-      { property: "og:title", content: `About ${profile.name}` },
-      { property: "og:description", content: `Background, skills and CV of ${profile.name}.` },
+      { title: `About — ${profile.fullname}` },
+      { name: "description", content: `About ${profile.fullname}, ${profile.role}.` },
+      { property: "og:title", content: `About ${profile.fullname}` },
+      { property: "og:description", content: `Background, skills and CV of ${profile.fullname}.` },
     ],
   }),
   component: About,
 });
 
-const skills = ["React", "TypeScript", "Node.js", "CSS / Tailwind", "REST & GraphQL", "Git"];
+const skills = ["Swift", "UIKit", "SwiftUI", "React", "TypeScript", "JavaScript", "Python", "Pytest", "Selenium", "Django", "Flask", "Three.js", "Firebase", "Git"];;
 
 function About() {
   return (
@@ -24,7 +24,7 @@ function About() {
         <p className="font-mono text-sm text-primary">// about</p>
         <h1 className="mt-4 text-5xl font-bold tracking-tight">Hi, I'm {profile.name.split(" ")[0]}.</h1>
         <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-          I'm a {profile.role.toLowerCase()} who loves turning ideas into fast, usable products. This is a placeholder bio — tell me a bit about yourself and I'll write it here.
+          I'm a {profile.role.toLowerCase()} who loves turning ideas into fast, usable products. I have live apps on the App Store, web applications, and landing pages for my iOS apps. I build it all myself, with AI as part of how I work. I also write Python, including test automation. My foundation is Harvard, Stanford coursework, and more.
         </p>
         <h2 className="mt-16 font-mono text-sm text-muted-foreground">skills</h2>
         <div className="mt-4 flex flex-wrap gap-2">

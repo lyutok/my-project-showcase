@@ -5,9 +5,9 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: `Contact — ${profile.name}` },
-      { name: "description", content: `Get in touch with ${profile.name}.` },
-      { property: "og:title", content: `Contact ${profile.name}` },
+      { title: `Contact — ${profile.fullname}` },
+      { name: "description", content: `Get in touch with ${profile.fullname}.` },
+      { property: "og:title", content: `Contact ${profile.fullname}` },
       { property: "og:description", content: `Send a message about projects or work.` },
     ],
   }),

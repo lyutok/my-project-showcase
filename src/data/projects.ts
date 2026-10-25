@@ -18,7 +18,8 @@ export const projects: Project[] = [
 ];
 
 export const profile = {
-  name: "Liudmyla Tokar",
+  fullname: "Liudmyla Tokar",
+  name: "Mila",
   role: "Web & App Developer",
   email: "mila.tokar.cv@gmail.com",
   cvUrl: "https://lyutok.github.io/python/cv/cv.html",
