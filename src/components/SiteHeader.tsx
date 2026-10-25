@@ -58,7 +58,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <ThemeToggle />
-          <a href={profile.cvUrl} download className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground transition-opacity hover:opacity-90">CV ↓</a>
+          <a href={profile.cvUrl} download="Liudmyla (Mila) Tokar — CV.pdf" className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground transition-opacity hover:opacity-90">CV ↓</a>
         </nav>
       </div>
     </header>

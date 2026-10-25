@@ -22,5 +22,5 @@ export const profile = {
   name: "Mila",
   role: "Web & App Developer",
   email: "mila.tokar.cv@gmail.com",
-  cvUrl: "https://lyutok.github.io/python/cv/cv.html",
+  cvUrl: "/Liudmyla (Mila) Tokar — CV.pdf",
 };
