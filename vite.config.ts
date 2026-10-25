@@ -44,6 +44,7 @@ export default defineConfig(({ mode }) => {
       tanstackStart({
         prerender: {
           enabled: true,
+          crawlLinks: false,
           failOnError: true,
         },
         importProtection: {
