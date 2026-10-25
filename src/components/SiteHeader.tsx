@@ -2,23 +2,41 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/projects";
 
+function setFavicon(isLime: boolean) {
+  const href = isLime ? "/favicon-lime.svg" : "/favicon-cobalt.svg";
+  let link = document.querySelector("link[rel='icon']") as HTMLLinkElement | null;
+  if (link) {
+    link.href = href;
+    link.type = "image/svg+xml";
+  } else {
+    link = document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/svg+xml";
+    link.href = href;
+    document.head.appendChild(link);
+  }
+}
+
 function ThemeToggle() {
   const [lime, setLime] = useState(false);
   useEffect(() => {
     const saved = localStorage.getItem("theme") === "lime";
     setLime(saved);
     document.documentElement.classList.toggle("theme-lime", saved);
+    setFavicon(saved);
   }, []);
   const toggle = () => {
     const next = !lime;
     setLime(next);
     localStorage.setItem("theme", next ? "lime" : "cobalt");
     document.documentElement.classList.toggle("theme-lime", next);
+    setFavicon(next);
   };
   return (
     <button onClick={toggle} aria-label="Switch color theme" title="Switch color theme" className="h-6 w-6 rounded-full border border-border bg-primary transition-transform hover:scale-110" />
   );
 }
+
 
 const links = [
   { to: "/", label: "Work" },
