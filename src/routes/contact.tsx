@@ -15,13 +15,14 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const field = "w-full rounded-md border border-input bg-card px-4 py-3 outline-none focus:border-primary";
+const field =
+  "w-full rounded-md border border-input bg-card px-4 py-3 outline-none focus:border-primary";
+const formEndpoint = "https://formspree.io/f/myeeegqd";
 
 function Contact() {
   const [isSending, setIsSending] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
-  const formEndpoint = formspreeId ? `https://formspree.io/f/${formspreeId}` : null;
+  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,30 +32,51 @@ function Contact() {
     const email = String(formData.get("email") ?? "");
     const message = String(formData.get("message") ?? "");
 
-    if (!formEndpoint) {
-      const body = `${message}\n\n— ${name} (${email})`;
-      window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent("Portfolio enquiry")}&body=${encodeURIComponent(body)}`;
-      return;
-    }
-
     setIsSending(true);
     setStatus("idle");
+    setErrorMessage("");
 
     try {
+      formData.set("_replyto", email);
+      formData.set("_subject", `Portfolio enquiry from ${name}`);
       const response = await fetch(formEndpoint, {
         method: "POST",
         headers: { Accept: "application/json" },
-        body: new URLSearchParams({ name, email, message }),
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        const responseBody = await response.text();
+        let detail = "";
+        try {
+          const result: unknown = JSON.parse(responseBody);
+          if (
+            typeof result === "object" &&
+            result !== null &&
+            "errors" in result &&
+            Array.isArray(result.errors)
+          ) {
+            detail = result.errors
+              .map((item: { message?: unknown }) =>
+                typeof item.message === "string" ? item.message : "",
+              )
+              .filter(Boolean)
+              .join(" ");
+          }
+        } catch {
+          detail = "";
+        }
+        throw new Error(detail || `Form service returned HTTP ${response.status}.`);
       }
 
       form.reset();
       setStatus("success");
-    } catch (_error) {
-      setStatus("error");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Could not connect to the form service. Please try again.",
+      );
     } finally {
       setIsSending(false);
     }
@@ -69,7 +91,13 @@ function Contact() {
         <form onSubmit={onSubmit} className="mt-10 space-y-4">
           <input name="name" required placeholder="Your name" className={field} />
           <input name="email" type="email" required placeholder="Your email" className={field} />
-          <textarea name="message" required rows={6} placeholder="Tell me about your project" className={field} />
+          <textarea
+            name="message"
+            required
+            rows={6}
+            placeholder="Tell me about your project"
+            className={field}
+          />
           <button
             type="submit"
             disabled={isSending}
@@ -80,8 +108,10 @@ function Contact() {
           {status === "success" && (
             <p className="text-sm text-emerald-600">Your message has been sent successfully.</p>
           )}
-          {status === "error" && (
-            <p className="text-sm text-red-600">Something went wrong. Please try again or email me directly.</p>
+          {errorMessage && (
+            <p role="alert" className="text-sm text-red-600">
+              {errorMessage} Please try again or email me directly.
+            </p>
           )}
         </form>
       </main>
