@@ -33,6 +33,7 @@ npm run dev          # → http://localhost:5173
 | `npm run dev`      | Start local dev server              |
 | `npm run build`    | Production build                    |
 | `npm run preview`  | Preview production build            |
+| `npm run deploy`   | Build and deploy to Cloudflare Pages |
 | `npm run lint`     | Run ESLint                          |
 | `npm run format`   | Format with Prettier                |
 | `npm test`         | Run tests once                      |
